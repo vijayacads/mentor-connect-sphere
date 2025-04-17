@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { User } from "@/types";
+import { User, Mentee } from "@/types";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,9 @@ interface UserProfileCardProps {
 }
 
 const UserProfileCard = ({ user, showActions = true }: UserProfileCardProps) => {
+  // Type guard to check if user is a mentee
+  const isMentee = (user: User): user is Mentee => user.role === "mentee";
+
   return (
     <Card className="overflow-hidden hover:shadow-md transition-shadow duration-300">
       <CardContent className="p-6">
@@ -37,7 +40,7 @@ const UserProfileCard = ({ user, showActions = true }: UserProfileCardProps) => 
             </div>
             
             <p className="text-sm text-muted-foreground">
-              {user.title || user.educationLevel}{user.organization ? `, ${user.organization}` : ''}
+              {user.title || (isMentee(user) ? user.educationLevel : '')}{user.organization ? `, ${user.organization}` : ''}
             </p>
             
             <div className="flex flex-wrap gap-1 mt-2">

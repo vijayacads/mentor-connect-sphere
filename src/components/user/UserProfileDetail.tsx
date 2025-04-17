@@ -37,7 +37,7 @@ const UserProfileDetail = ({ user }: UserProfileDetailProps) => {
           </div>
           
           <p className="text-lg text-muted-foreground mt-1">
-            {user.title || user.educationLevel}{user.organization ? ` at ${user.organization}` : ''}
+            {user.title || (isMentee(user) ? user.educationLevel : '')}{user.organization ? ` at ${user.organization}` : ''}
           </p>
           
           <div className="flex flex-wrap items-center gap-4 mt-4">
